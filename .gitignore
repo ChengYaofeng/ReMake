@@ -1,0 +1,45 @@
+datasets/transcg/
+
+datasets/cleargrasp/
+
+states/
+
+
+00_test/
+
+.vscode/
+*.pyc
+__pycache__/
+
+
+# depth_anything_v2/
+
+checkpoints/
+
+/results
+
+assets/
+
+# 不上传，防止服务器修改
+scripts/*
+configs/*
+# 保留占位文件
+!scripts/.gitkeep
+!configs/.gitkeep
+
+/ultralytics
+
+# exp models
+models/fail_models_copy/
+models/model_trails
+
+/image_preprocess
+
+01_major_previous_version/
+
+relat_depth_models/leres/res50.pth
+relat_depth_models/leres/res101.pth
+
+/config_change
+
+output_name.pdf
