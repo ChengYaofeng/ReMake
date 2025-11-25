@@ -28,7 +28,7 @@ class ConfigBuilder():
 
         from models.tdcnet import TDCNet
         from models.dfnet import DFNet
-        from models.remake import ReMak
+        from models.remake import ReMake
 
 
         
@@ -43,7 +43,7 @@ class ConfigBuilder():
         elif model_type == 'dfnet':
             model = DFNet.build(**params)
         elif model_type == 'remake':
-            model = ReMak.build(**params)
+            model = ReMake.build(**params)
         else:
             raise NotImplementedError(f'Invalid model type: {model_type}.')
         return model
@@ -52,7 +52,7 @@ class ConfigBuilder():
         '''
             define trainer with correspond model
         '''
-        from .trainer import df_trainer, tdc_trainer, yf_trainer
+        from .trainer import df_trainer, tdc_trainer, remake_trainer
         
         if model_params is None:
             model_params = self.model_params
@@ -63,7 +63,7 @@ class ConfigBuilder():
         elif model_type == 'dfnet':
             trainer = df_trainer
         elif model_type == 'remake':
-            trainer = yf_trainer
+            trainer = remake_trainer
         else:
             raise NotImplementedError(f'Invalid model type: {model_type}.')
         

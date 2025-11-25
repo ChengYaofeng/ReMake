@@ -16,7 +16,7 @@ def df_trainer(model, data_dict):
 
     
 #remake
-def yf_trainer(model, data_dict, relative_depth):
+def remake_trainer(model, data_dict, relative_depth):
     
     relative_depth = F.interpolate(relative_depth, size=(480, 640), mode='bilinear', align_corners=False)
 

@@ -78,9 +78,9 @@ class Decoder(nn.Module):
         
 
 
-class ReMak(nn.Module):
+class ReMake(nn.Module):
     def __init__(self, lambda_val = 1, res = True):
-        super(ReMak, self).__init__()
+        super(ReMake, self).__init__()
         
         self.encoder_img = SwinTransformer(patch_size=2, in_chans=4, embed_dim=24)
         self.encoder_rel = SwinTransformer(patch_size=2, in_chans=1, embed_dim=24)
