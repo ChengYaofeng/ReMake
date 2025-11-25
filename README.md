@@ -7,7 +7,10 @@ https://chengyaofeng.github.io/ReMake.github.io/
 
 ```
 conda env create -f env.yaml
+# we use pytorch 1.12.1 for realworld grasping experiments
+# my own grasping code PCFGrasp: https://github.com/ChengYaofeng/PCF-Grasp
 
+# We also test pytorch 2.3.1 for this code training
 conda install pytorch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 pytorch-cuda=11.8 -c pytorch -c nvidia
 
 # possible ERROR
