@@ -1,6 +1,6 @@
 # Rethinking Transparent Object Grasping: Depth Completion with Monocular Depth Estimation and Instance Mask
 
-## Official Web
+## Official Web & Paper
 https://chengyaofeng.github.io/ReMake.github.io/
 
 ## Env
@@ -82,7 +82,14 @@ bash ./scripts/realworld_inference.sh
 ```
 
 ## Cite
-
+```
+@article{cheng2025rethinking,
+  title={Rethinking Transparent Object Grasping: Depth Completion with Monocular Depth Estimation and Instance Mask},
+  author={Cheng, Yaofeng and Gao, Xinkai and Zhang, Sen and Zeng, Chao and Zha, Fusheng and Sun, Lining and Yang, Chenguang},
+  journal={arXiv preprint arXiv:2508.02507},
+  year={2025}
+}
+```
 
 ## Thanks
 Paper recommended： TDCNet official code: https://github.com/XianghuiFan/TDCNet
