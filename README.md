@@ -29,6 +29,7 @@ OOD: https://drive.google.com/drive/folders/1wCB1vZ1F3up5FY5qPjhcfSfgXpAtn31H?us
 ```
 input transcg into the datasets file as:
 
+datasets
 ├── transcg
 │   └── transcg
 │       ├── camera_intrinsics
