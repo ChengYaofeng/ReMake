@@ -18,25 +18,23 @@ DILATION_KERNEL = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]]).astype(np.uint8)
 
 def plot_rgb_image(img_tensor_or_array, title=None, save_path=None):
     """
-    显示 RGB 图像，支持 PyTorch tensor 或 NumPy array
-    输入格式可以是：
-      - torch.Tensor: (3, H, W) 或 (1, 3, H, W)
+    plot rgb image: support for PyTorch tensor or NumPy array
+    input style:
+      - torch.Tensor: (3, H, W) or (1, 3, H, W)
       - np.ndarray:  (H, W, 3)
 
-    参数:
-        img_tensor_or_array: 输入图像 (Tensor 或 ndarray)
-        title: 图像标题（可选）
-        save_path: 若设置此路径，则保存图像而不是显示（可选）
+    parameters:
+        img_tensor_or_array: input image (Tensor or ndarray)
+        title: image title (optional)
+        save_path: if set, save the image instead of displaying (optional)
     """
-    # 如果是 PyTorch tensor
+    #  PyTorch tensor
     if isinstance(img_tensor_or_array, torch.Tensor):
         img = img_tensor_or_array.detach().cpu()
 
-        # 去掉 batch 维
         if img.ndim == 4:
             img = img.squeeze(0)
 
-        # 转换为 (H, W, 3)
         img = img.permute(1, 2, 0).numpy()
 
     elif isinstance(img_tensor_or_array, np.ndarray):
@@ -44,10 +42,10 @@ def plot_rgb_image(img_tensor_or_array, title=None, save_path=None):
     else:
         raise TypeError("Input must be a torch.Tensor or numpy.ndarray")
 
-    # Clip 到 [0,1] 以防溢出
+    # Clip
     img = np.clip(img, 0, 1)
 
-    # 绘图
+    # plot
     plt.figure(figsize=(6, 6))
     plt.imshow(img)
     plt.axis('off')
@@ -63,23 +61,23 @@ def plot_rgb_image(img_tensor_or_array, title=None, save_path=None):
         
 def plot_numpy_rgb_image(img_np, title=None, save_path=None):
     """
-    可视化一个 NumPy 格式的 RGB 图像。
-    
-    参数:
-        img_np: NumPy 图像数组，形状应为 (H, W, 3)，通道顺序为 RGB
-        title: 图像标题（可选）
-        save_path: 若提供此路径，则保存图像而非显示（可选）
+    plot a NumPy format RGB image.
+
+    parameters:
+        img_np: NumPy image array, shape should be (H, W, 3), channel order is RGB
+        title: image title (optional)
+        save_path: if provided, save the image instead of displaying (optional)
     """
-    assert isinstance(img_np, np.ndarray), "输入必须是 numpy.ndarray"
-    assert img_np.ndim == 3 and img_np.shape[2] == 3, f"图像必须为 (H, W, 3)，但得到的是 {img_np.shape}"
-    
-    # 若像素值为 uint8，则归一化到 [0, 1]
+    assert isinstance(img_np, np.ndarray), "Input must be numpy.ndarray"
+    assert img_np.ndim == 3 and img_np.shape[2] == 3, f"Image must be (H, W, 3), but got {img_np.shape}"
+
+    # If pixel values are uint8, normalize to [0, 1]
     if img_np.dtype == np.uint8:
         img_disp = img_np.astype(np.float32) / 255.0
     else:
-        img_disp = np.clip(img_np, 0, 1)  # 避免 matplotlib 报错
+        img_disp = np.clip(img_np, 0, 1)  # Avoid matplotlib errors
 
-    # 可视化
+    # plot
     plt.figure(figsize=(6, 6))
     plt.imshow(img_disp)
     plt.axis('off')
@@ -88,7 +86,7 @@ def plot_numpy_rgb_image(img_np, title=None, save_path=None):
 
     if save_path:
         plt.savefig(save_path, bbox_inches='tight')
-        print(f"图像已保存至 {save_path}")
+        print(f"Image saved to {save_path}")
         plt.close()
     else:
         plt.show()
@@ -143,17 +141,17 @@ def remove_outliers_from_depth(depth_map, kernel_size=7, threshold=0.1):
 
     valid_mask = (depth_map > 0)
 
-    # 缩放到 [0, 255] 并转换为 uint8（也可选择 uint16）
+    # Scale to [0, 255] and convert to uint8 (optional: uint16)
     depth_max = depth_map.max()
     depth_uint8 = (depth_map / depth_max * 255).astype(np.uint8)
 
-    # 中值滤波
+    # Median filtering
     median_filtered = cv2.medianBlur(depth_uint8, kernel_size)
 
-    # 还原回 float32
+    # Restore to float32
     median_filtered = median_filtered.astype(np.float32) / 255.0 * depth_max
 
-    # 离群点剔除
+    # Outlier removal
     diff = np.abs(depth_map - median_filtered)
     outlier_mask = (diff > threshold) & valid_mask
 
@@ -261,7 +259,7 @@ def handle_depth(depth, depth_gt, depth_gt_mask):
     depth_uint8 = np.array(depth_uint8, dtype=np.float32) / 255 * depth.max()
     
     mask_pixel_indices = np.array(np.where(depth_gt_mask == 1)).T
-    dropout_size = int(mask_pixel_indices.shape[0] * 0.003) #这里的0.003是表明丢弃了0.3%的点云
+    dropout_size = int(mask_pixel_indices.shape[0] * 0.003) #drop 0.3% points
     dropout_centers_indices = np.random.choice(mask_pixel_indices.shape[0], size=dropout_size)
     dropout_centers = mask_pixel_indices[dropout_centers_indices, :]
     x_radii = np.random.gamma(3.0, 2.0, size=dropout_size)

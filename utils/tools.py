@@ -42,7 +42,7 @@ def get_xyz(depth, fx, fy, cx, cy, original_size=(1280, 720)):
 def get_surface_normal_from_xyz(xyz, epsilon=1e-8):
     '''
         get surface normal from xyz map
-        法向量，这里不能用points来形容，应该用xyz map来形容，因为数据是B，3，H，W
+        
         Input:
             xyz:
         Output:
@@ -125,14 +125,14 @@ def depth2pc(depth, fx, fy, cx, cy):
     device = depth.device
     # print(device)
 
-    # 读取相机内参 (fx, fy, cx, cy)
+    # camera intrinsics (fx, fy, cx, cy)
     # cam_intrinsics = np.load('/home/cyf/YFTrans/datasets/transcg/transcg/camera_intrinsics/1-camIntrinsics-D435.npy')
     # fx = cam_intrinsics[0, 0]
     # fy = cam_intrinsics[1, 1]
     # cx = cam_intrinsics[0, 2]
     # cy = cam_intrinsics[1, 2]
 
-    # 生成像素坐标网格
+    # pixel coordinates
     y, x = torch.meshgrid(
         torch.arange(0, H, dtype=torch.float32, device=device),
         torch.arange(0, W, dtype=torch.float32, device=device),
@@ -147,7 +147,7 @@ def depth2pc(depth, fx, fy, cx, cy):
     fy = fy.view(B, 1, 1).expand(B, H, W)
     cx = cx.view(B, 1, 1).expand(B, H, W)
     cy = cy.view(B, 1, 1).expand(B, H, W)
-    # 投影公式
+    # projection formula
     X = (x - cx) * d / fx
     Y = (y - cy) * d / fy
     Z = d

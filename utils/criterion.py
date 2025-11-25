@@ -17,7 +17,7 @@ class Criterion(nn.Module):
         self.type = str.lower(type)
         if 'huber' in self.type:
             self.huber_k = kwargs.get('huber_k', 0.1)
-        self.combined_smooth = combined_smooth #这个参数的作用是什么
+        self.combined_smooth = combined_smooth
         if combined_smooth:
             self.combined_beta = kwargs.get('combined_beta', 0.005)
             self.combined_beta_decay = kwargs.get('combined_beta_decay', 0.1)

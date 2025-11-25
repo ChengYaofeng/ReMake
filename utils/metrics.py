@@ -18,7 +18,7 @@ class Metrics():
         
     def MSE(self, pred, gt, zero_mask, *args, **kwargs):
         '''
-            深度误差平方和,无开方
+            
         '''
         sample_mse = torch.sum(((pred - gt) ** 2) * zero_mask.float(), dim=[1, 2]) / (
             torch.sum(zero_mask.float(), dim=[1, 2]) + self.epsilon
@@ -27,7 +27,7 @@ class Metrics():
     
     def RMSE(self, pred, gt, zero_mask, *args, **kwargs):
         '''
-        开方平均误差
+        Root Mean Square Error
         '''
         sample_mse = torch.sum(((pred - gt) ** 2) * zero_mask.float(), dim=[1, 2]) / (
             torch.sum(zero_mask.float(), dim=[1, 2]) + self.epsilon) * self.depth_scale * self.depth_scale
@@ -36,7 +36,7 @@ class Metrics():
     
     def MaskedMSE(self, pred, gt, zero_mask, gt_mask, *args, **kwargs):
         '''
-        掩模内的平均误差
+        
         '''
         mask = gt_mask & zero_mask
         sample_masked_mse = torch.sum(((pred - gt) ** 2) * mask.float(), dim= [1, 2]) / (
@@ -46,7 +46,7 @@ class Metrics():
     
     def MaskedRMSE(self, pred, gt, zero_mask, gt_mask, *args, **kwargs):
         '''
-        掩模内的平均开方误差
+        Masked Root Mean Square Error
         '''
         mask = gt_mask & zero_mask
         sample_masked_mse = torch.sum(((pred - gt) ** 2) * mask.float(), dim= [1, 2]) / (
@@ -56,7 +56,7 @@ class Metrics():
     
     def REL(self, pred, gt, zero_mask, *args, **kwargs):
         '''
-        相对差值
+        relative error
         '''
         sample_rel = torch.sum((torch.abs(pred - gt) / (gt + self.epsilon)) * zero_mask.float(), dim=[1,2]) / (
             torch.sum(zero_mask.float(), dim=[1, 2]) + self.epsilon)
@@ -65,7 +65,7 @@ class Metrics():
     
     def MaskedREL(self, pred, gt, zero_mask, gt_mask, *args, **kwargs):
         '''
-        掩模相对差值
+        Masked relative error
         '''
         mask = gt_mask & zero_mask
         sample_masked_rel = torch.sum((torch.abs(pred - gt) / (gt + self.epsilon)) * mask.float(), dim = [1, 2]) / (
@@ -75,7 +75,7 @@ class Metrics():
     
     def MAE(self, pred, gt, zero_mask, *args, **kwargs):
         '''
-        平均绝对误差
+        Mean Absolute Error
         '''
         sample_mae = torch.sum(torch.abs(pred - gt) * zero_mask.float(), dim = [1, 2]) / (
             torch.sum(zero_mask.float(), dim = [1, 2]) + self.epsilon) * self.depth_scale

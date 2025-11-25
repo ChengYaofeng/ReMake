@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 import torchvision
 
 def visualize_feature_map(feat, title="Feature Map", nrow=8):
-    """可视化一个单层特征图的通道"""
-    feat = feat[0, :8].unsqueeze(1)  # 取 batch 中第一个样本，变成 [C, 1, H, W]
+    """visualize one feature map"""
+    feat = feat[0, :8].unsqueeze(1)  # [C, 1, H, W]
     feat_grid = torchvision.utils.make_grid(feat, nrow=nrow, normalize=True, scale_each=True)
 
     img = feat_grid.permute(1, 2, 0).cpu().numpy()

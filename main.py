@@ -5,15 +5,15 @@ import argparse
 from run_tools import train, ddp_train, test, inference, realworld_inference, live_inference
 
 
-def debug():
-    import debugpy
-    try:
-        # 5678 is the default attach port in the VS Code debug configurations. Unless a host and port are specified, host defaults to 127.0.0.1
-        debugpy.listen(("localhost", 9501))
-        print("Waiting for debugger attach")
-        debugpy.wait_for_client()
-    except Exception as e:
-        pass
+# def debug():
+#     import debugpy
+#     try:
+#         # 5678 is the default attach port in the VS Code debug configurations. Unless a host and port are specified, host defaults to 127.0.0.1
+#         debugpy.listen(("localhost", 9501))
+#         print("Waiting for debugger attach")
+#         debugpy.wait_for_client()
+#     except Exception as e:
+#         pass
 
 
 def main(args):

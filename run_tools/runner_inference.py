@@ -22,19 +22,19 @@ def load_image(idx, jdx):
     base_path = f'/home/cyf/YFTrans/datasets/transcg/transcg/scene{idx}/{jdx}'
     
     try:
-        # 构造文件路径
+        #file path
         rgb_path       = os.path.join(base_path, 'rgb1.png')
         mask_path      = os.path.join(base_path, 'depth1-gt-mask.png')
         depth_path     = os.path.join(base_path, 'depth1.png')
         depth_gt_path  = os.path.join(base_path, 'depth1-gt.png')
 
-        # 检查文件是否存在
+        # check files exist
         for p in [rgb_path, mask_path, depth_path, depth_gt_path]:
             if not os.path.exists(p):
-                print(f"[跳过] 文件不存在: {p}")
+                print(f"file not found: {p}")
                 return None
 
-        # 加载图像
+        # load images
         rgb         = cv2.imread(rgb_path)
         rgb_mask    = np.array(Image.open(mask_path), dtype=np.float32)
         depth       = np.array(Image.open(depth_path), dtype=np.float32) / 1000.0
@@ -44,7 +44,7 @@ def load_image(idx, jdx):
         return rgb, depth, rgb_mask, rgb_mask_ori, depth_gt
 
     except Exception as e:
-        print(f"[错误] 加载 scene{idx}/{jdx} 时发生错误: {e}")
+        print(f"Error scene wrong {idx}/{jdx} error {e}")
         return None
 
 
@@ -60,7 +60,7 @@ def inference(args, **kwargs):
         # rgb, depth, rgb_mask, rgb_mask_ori, depth_gt = load_image(1, i*5)
         result = load_image(i * 30, 6)
         if result is None:
-            continue  # 跳过加载失败的图片
+            continue  # skip failed image loading
         rgb, depth, rgb_mask, rgb_mask_ori, depth_gt = result
         
         no_mask_depth = kwargs.get('no_mask_depth', False)
@@ -69,7 +69,7 @@ def inference(args, **kwargs):
             print('-------------no mask depth--------')
             
         res = inferencer.inference(rgb, depth, rgb_mask)
-        # res = res * 255 #这里乘255的作用
+        # res = res * 255
         
         # cv2.imwrite('transcg_28_20_TDC_pred.png', res)
         cam_intrinsics = np.load('/home/cyf/YFTrans/datasets/transcg/transcg/camera_intrinsics/1-camIntrinsics-D435.npy')
@@ -99,7 +99,7 @@ def inference(args, **kwargs):
         pcd_gt = depth_to_point_cloud(depth_gt, rgb, cam_intrinsics)
         vis_points(pcd_gt)
         
-        # 真值红色，预测彩色
+        # ground truth red; prediction RGB color
         pcd = depth_to_point_cloud(res, rgb, cam_intrinsics)
         vis_points(pcd)
 

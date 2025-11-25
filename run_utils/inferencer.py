@@ -16,7 +16,6 @@ from utils.visualization import plot_realat_depth, run_gradcam_on_encoder_img
 class Inferencer():
     def __init__(self, args, with_info=False):
         '''
-            with_info的作用是什么
         '''
         
         

@@ -13,7 +13,6 @@ def load_model_weights(model, state_dict):
     try:
         model.load_state_dict(state_dict)
     except RuntimeError:
-        # 可能是 state_dict 带了 'module.' 前缀，尝试去掉重试
         from collections import OrderedDict
         new_state_dict = OrderedDict()
         for k, v in state_dict.items():

@@ -140,7 +140,7 @@ def realworld_inference(args, **kwargs):
     
     inferencer = Inferencer(args)
 
-    align = rs.align(rs.stream.color) #深度图和rgb图对齐
+    align = rs.align(rs.stream.color) #depth image align to color image
 
     config = rs.config()
     config.enable_stream(rs.stream.depth, 1280, 720, rs.format.z16, 30) #640, 480,
@@ -173,12 +173,12 @@ def realworld_inference(args, **kwargs):
             depth_norm = cv2.normalize(depth, None, 0, 255, cv2.NORM_MINMAX)   # float32 → 0-255
             depth_u8   = depth_norm.astype(np.uint8)                           # → uint8
             depth_vis  = cv2.applyColorMap(depth_u8, cv2.COLORMAP_VIRIDIS)
-            vis = np.hstack((rgb_bgr, depth_vis))   # 或改成 np.vstack() 纵向拼
+            vis = np.hstack((rgb_bgr, depth_vis))   
             # cv2.imshow('RGB | Depth', vis)
             scale = 0.6
             vis_resized = cv2.resize(vis, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
 
-            # 显示缩放后的图像
+            # visualize image
             cv2.imshow('RGB | Depth', vis_resized)
 
             key = cv2.waitKey(1)
@@ -186,7 +186,7 @@ def realworld_inference(args, **kwargs):
                 masks = mask_generator.generate(rgb)
                 
                 overlay = rgb.copy()
-                for i, mask_dict in enumerate(masks[:36]):  # 最多显示前36个
+                for i, mask_dict in enumerate(masks[:36]):  # show up to 36
                     mask = mask_dict["segmentation"].astype(np.uint8)
                     color = np.random.randint(0, 255, (3,), dtype=np.uint8)
                     overlay[mask > 0] = overlay[mask > 0] * 0.5 + color * 0.5
@@ -194,7 +194,7 @@ def realworld_inference(args, **kwargs):
                     x, y, w, h = mask_dict["bbox"]
                     cv2.rectangle(overlay, (x, y), (x + w, y + h), color.tolist(), 2)
 
-                    # 显示编号：0-9, a-z
+                    # show number：0-9, a-z
                     if i < 10:
                         label = str(i)
                     else:
@@ -229,7 +229,7 @@ def realworld_inference(args, **kwargs):
                 # print(masks)
                 select_mask = masks[selected_idx]['segmentation'].astype(np.uint8)
                 # print(select_mask.shape)
-                # 透明物体之外的深度
+                
                 kernel = np.ones((3, 3), np.uint8)
                 mask_resized = cv2.resize(select_mask, (rgb.shape[1], rgb.shape[0]), interpolation=cv2.INTER_NEAREST)  # mask 1
                 mask_resized = cv2.erode(select_mask, kernel, iterations=1)
@@ -237,11 +237,12 @@ def realworld_inference(args, **kwargs):
                 
                 depth_no_trans = depth * mask_inv
                 
-                # if no_mask_depth is True: # 输入透明物体之外的深度
+                # ablation
+                # if no_mask_depth is True:
                     # depth = depth * (1-rgb_mask)
                 # print('no mask depth')
                 # res = inferencer.inference(rgb, depth_no_trans, mask_resized)
-                # else: # 输入原始深度
+                # else:
                 #     res = inferencer.inference(rgb, depth)
                     
                 res = inferencer.inference(rgb, depth, mask_resized)
@@ -256,12 +257,12 @@ def realworld_inference(args, **kwargs):
                 cv2.waitKey(0)
                 cv2.destroyAllWindows()
                 
-                # 预测的透明物体深度
+                # predicted transparent object depth
                 pred_mask_depth = mask_resized * res
-                # 预测的透明物体深度加准确深度
+                # predicted transparent object depth + original depth for non-transparent area
                 pred_vis_depth = pred_mask_depth + depth_no_trans
-                
-                # 可视化原始深度
+
+                # visualize original depth
                 pcd_gt = real_world_depth_to_point_cloud(depth, rgb, intr)
                 vis_points(pcd_gt)
                 
@@ -272,13 +273,13 @@ def realworld_inference(args, **kwargs):
                 
                 rgb_copy = rgb.copy()
                 rgb_copy = np.where(rgb_mask == 1, rgb * 0.5 + red_layer * 0.5, rgb).astype(np.uint8)
-                
-                # 预测深度加原始深度可视化
+
+                # visualize predicted depth + original depth
                 pred_pc = real_world_depth_to_point_cloud(pred_vis_depth, rgb_copy, intr)
                 # pred_pc = pred_real_world_depth_to_point_cloud(pred_vis_depth, rgb_copy, intr)
 
                 vis_points(pred_pc)
-                # 全局预测深度可视化
+                # global predicted depth visualization
                 # pred_pc = real_world_depth_to_point_cloud(res, rgb_copy, intr)
                 # vis_points(pred_pc)
 

@@ -86,13 +86,13 @@ def test(args):
                     trainer(model, data_dict)
                     time_end = perf_counter()
                 
-                # 误差统计
+                # error statistics
                 # batch_refract, batch_reflect, batch_normal = evaluate_model_statistically(data_dict)
                 # all_refract_errors.extend(batch_refract)
                 # all_reflect_errors.extend(batch_reflect)
                 # all_normal_errors.extend(batch_normal)
 
-                #占比统计
+                #ratio statistics
                 # (ratio, count) = evaluate_transparent_region_ratio(data_dict)
                 # region_ratios.append(ratio)
                 # region_counts.append(count)
@@ -108,8 +108,8 @@ def test(args):
     metrics_result = metrics.get_results()
     metrics.display_recorder_results()
 
-    ##### 预测误差分析
-    # 汇总为一维数组
+    ##### prediction error statistics
+    
     # refract_all = np.concatenate(all_refract_errors)
     # reflect_all = np.concatenate(all_reflect_errors)
     # normal_all = np.concatenate(all_normal_errors)
@@ -130,22 +130,22 @@ def test(args):
     # }
 
     # df = pd.DataFrame(stats).T
-    # print("\n全数据集误差统计结果（按透明区域分类）：")
+    # print("\n alldataset error results：")
     # print(df.to_string(float_format="%.4f"))
 
-    # # 可选：保存 CSV
+    # # choice：save as CSV
     # df.to_csv("transparent_error_statistics.csv")
 
-    ##### 占比统计
+    ##### ratio statistics
     # region_ratios = np.array(region_ratios)
     # region_counts = np.array(region_counts)
 
     # mean_ratios = np.mean(region_ratios, axis=0)
     # total_counts = np.sum(region_counts, axis=0)
 
-    # print("\n=== 全数据集透明区域占比统计 ===")
-    # print(f"折射区域: {mean_ratios[0]*100:.2f}% ({total_counts[0]} px)")
-    # print(f"反射区域: {mean_ratios[1]*100:.2f}% ({total_counts[1]} px)")
-    # print(f"正常区域: {mean_ratios[2]*100:.2f}% ({total_counts[2]} px)")
+    # print("\n=== all dataset region ratio statistics ===")
+    # print(f"refraction region: {mean_ratios[0]*100:.2f}% ({total_counts[0]} px)")
+    # print(f"reflection region: {mean_ratios[1]*100:.2f}% ({total_counts[1]} px)")
+    # print(f"normal region: {mean_ratios[2]*100:.2f}% ({total_counts[2]} px)")
     return metrics_result
 
