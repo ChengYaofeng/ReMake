@@ -98,7 +98,7 @@ class Inferencer():
         # inference
         with torch.no_grad():
             time_start = perf_counter()
-            if self.model_type  == 'yftrans':
+            if self.model_type  == 'remake':
                 
                 if self.args.reldepth_model == 'leres':
                     relative_depth = reldepth_model.inference(rgb_relat.permute(0, 3, 1, 2))

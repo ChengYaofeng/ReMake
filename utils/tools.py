@@ -126,7 +126,7 @@ def depth2pc(depth, fx, fy, cx, cy):
     # print(device)
 
     # camera intrinsics (fx, fy, cx, cy)
-    # cam_intrinsics = np.load('/home/cyf/YFTrans/datasets/transcg/transcg/camera_intrinsics/1-camIntrinsics-D435.npy')
+    # cam_intrinsics = np.load('/home/cyf/remake/datasets/transcg/transcg/camera_intrinsics/1-camIntrinsics-D435.npy')
     # fx = cam_intrinsics[0, 0]
     # fy = cam_intrinsics[1, 1]
     # cx = cam_intrinsics[0, 2]

@@ -42,7 +42,7 @@ class ConfigBuilder():
             model = TDCNet.build(**params)
         elif model_type == 'dfnet':
             model = DFNet.build(**params)
-        elif model_type == 'yftrans':
+        elif model_type == 'remake':
             model = ReMak.build(**params)
         else:
             raise NotImplementedError(f'Invalid model type: {model_type}.')
@@ -62,7 +62,7 @@ class ConfigBuilder():
             trainer = tdc_trainer
         elif model_type == 'dfnet':
             trainer = df_trainer
-        elif model_type == 'yftrans':
+        elif model_type == 'remake':
             trainer = yf_trainer
         else:
             raise NotImplementedError(f'Invalid model type: {model_type}.')

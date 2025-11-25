@@ -8,10 +8,10 @@ import open3d as o3d
 
 
 # def load_image(idx, jdx):
-#     rgb = cv2.imread(f'/home/cyf/YFTrans/datasets/transcg/transcg/scene{idx}/{jdx}/rgb1.png')
-#     rgb_mask = np.array(Image.open(f'/home/cyf/YFTrans/datasets/transcg/transcg/scene{idx}/{jdx}/depth1-gt-mask.png'), dtype = np.float32)
-#     depth = np.array(Image.open(f'/home/cyf/YFTrans/datasets/transcg/transcg/scene{idx}/{jdx}/depth1.png'), dtype = np.float32)
-#     depth_gt = np.array(Image.open(f'/home/cyf/YFTrans/datasets/transcg/transcg/scene{idx}/{jdx}/depth1-gt.png'), dtype = np.float32)
+#     rgb = cv2.imread(f'/home/cyf/remake/datasets/transcg/transcg/scene{idx}/{jdx}/rgb1.png')
+#     rgb_mask = np.array(Image.open(f'/home/cyf/remake/datasets/transcg/transcg/scene{idx}/{jdx}/depth1-gt-mask.png'), dtype = np.float32)
+#     depth = np.array(Image.open(f'/home/cyf/remake/datasets/transcg/transcg/scene{idx}/{jdx}/depth1.png'), dtype = np.float32)
+#     depth_gt = np.array(Image.open(f'/home/cyf/remake/datasets/transcg/transcg/scene{idx}/{jdx}/depth1-gt.png'), dtype = np.float32)
 #     rgb_mask_ori = cv2.resize(rgb_mask.copy(), (320, 240), interpolation = cv2.INTER_NEAREST)
     
 #     depth = depth / 1000
@@ -19,7 +19,7 @@ import open3d as o3d
     
 #     return rgb, depth, rgb_mask, rgb_mask_ori, depth_gt
 def load_image(idx, jdx):
-    base_path = f'/home/cyf/YFTrans/datasets/transcg/transcg/scene{idx}/{jdx}'
+    base_path = f'/home/cyf/remake/datasets/transcg/transcg/scene{idx}/{jdx}'
     
     try:
         #file path
@@ -72,7 +72,7 @@ def inference(args, **kwargs):
         # res = res * 255
         
         # cv2.imwrite('transcg_28_20_TDC_pred.png', res)
-        cam_intrinsics = np.load('/home/cyf/YFTrans/datasets/transcg/transcg/camera_intrinsics/1-camIntrinsics-D435.npy')
+        cam_intrinsics = np.load('/home/cyf/remake/datasets/transcg/transcg/camera_intrinsics/1-camIntrinsics-D435.npy')
 
         # print(depth)
         # print(depth.shape)

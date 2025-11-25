@@ -346,7 +346,7 @@ def process_data(
     depth_gt = process_depth(depth_gt, camera_type=camera_type, depth_min=depth_min,
                              depth_max=depth_max, depth_norm=depth_norm)
     
-    # cam_intrinsics = np.load('/home/cyf/YFTrans/datasets/transcg/transcg/camera_intrinsics/1-camIntrinsics-D435.npy')
+    # cam_intrinsics = np.load('/home/cyf/remake/datasets/transcg/transcg/camera_intrinsics/1-camIntrinsics-D435.npy')
     # pcd = depth_to_point_cloud(depth_gt, rgb, cam_intrinsics)
     # o3d.visualization.draw_geometries([pcd])
     rgb_relat = rgb.copy()
@@ -435,7 +435,7 @@ def process_data(
         depth = depth * (1 - depth_gt_mask) #no trans depth
         print('no mask depth')
     
-    # cam_intrinsics = np.load('/home/cyf/YFTrans/datasets/transcg/transcg/camera_intrinsics/1-camIntrinsics-D435.npy')
+    # cam_intrinsics = np.load('/home/cyf/remake/datasets/transcg/transcg/camera_intrinsics/1-camIntrinsics-D435.npy')
     # pcd = depth_to_point_cloud_no_color(depth, cam_intrinsics)
     # o3d.visualization.draw_geometries([pcd])
     

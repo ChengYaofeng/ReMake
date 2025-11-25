@@ -15,7 +15,7 @@ def df_trainer(model, data_dict):
     data_dict['pred'] = res
 
     
-#yftrans
+#remake
 def yf_trainer(model, data_dict, relative_depth):
     
     relative_depth = F.interpolate(relative_depth, size=(480, 640), mode='bilinear', align_corners=False)
