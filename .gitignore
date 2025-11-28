@@ -20,12 +20,6 @@ checkpoints/
 
 assets/
 
-# 不上传，防止服务器修改
-scripts/*
-configs/*
-# 保留占位文件
-!scripts/.gitkeep
-!configs/.gitkeep
 
 /ultralytics
 
