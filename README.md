@@ -87,12 +87,16 @@ bash ./scripts/realworld_inference.sh
 
 ## Cite
 ```
-@article{cheng2025rethinking,
-  title={Rethinking Transparent Object Grasping: Depth Completion with Monocular Depth Estimation and Instance Mask},
+@ARTICLE{11434519,
   author={Cheng, Yaofeng and Gao, Xinkai and Zhang, Sen and Zeng, Chao and Zha, Fusheng and Sun, Lining and Yang, Chenguang},
-  journal={arXiv preprint arXiv:2508.02507},
-  year={2025}
-}
+  journal={IEEE Robotics and Automation Letters}, 
+  title={Rethinking Transparent Object Grasping: Depth Completion With Monocular Depth Estimation and Instance Mask}, 
+  year={2026},
+  volume={11},
+  number={5},
+  pages={5510-5517},
+  }
+
 ```
 
 ## Thanks
