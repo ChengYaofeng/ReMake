@@ -19,6 +19,10 @@ ModuleNotFoundError: No module named 'Imath’
 imath cannot install: `pip install OpenEXR`
 ```
 
+## Checkpoints
+
+The trained model is available at [Google Drive](https://drive.google.com/file/d/1AF9sWyhEoNHnAlJ_y1AXsoxgrXq44333/view?usp=drive_link).
+
 ## Dataset
 
 ```
